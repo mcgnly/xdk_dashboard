@@ -5,10 +5,11 @@ try:
 except ImportError:
     import simplejson as json
 
-with open('apikeys.txt', 'r') as a:
-    readData = a.read()
-a.closed
-
+with open('apikeys.txt', 'r') as keyFile:
+    keyFile = open('apikeys.txt', 'r')
+    CLIENT_TOKEN = keyFile.readline().rstrip()
+    DEVICE_ID = keyFile.readline().rstrip()
+keyFile.closed
 
 c = Client(token=CLIENT_TOKEN)
 d = c.get_device(deviceID=DEVICE_ID).get_info()
@@ -20,6 +21,11 @@ conn = user.connect_device(app, d, callback)
 conn.start()
 time.sleep(10)
 conn.stop()
+
+
+
+
+
 
 # sound = twitter.statuses.user_timeline.tweets(screen_name="amandapalmer", since_id = int(readData),
 #                                                    exclude_replies = "true", include_rts = "false")
