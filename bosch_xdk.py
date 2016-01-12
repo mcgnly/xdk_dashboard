@@ -26,7 +26,7 @@ conn.stop()
 
 
 
-
+#example code where I scraped json to see how to do that
 # sound = twitter.statuses.user_timeline.tweets(screen_name="amandapalmer", since_id = int(readData),
 #                                                    exclude_replies = "true", include_rts = "false")
 #
