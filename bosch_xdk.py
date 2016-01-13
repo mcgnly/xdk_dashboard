@@ -1,5 +1,6 @@
 import time
 from relayr import Client
+from relayr.dataconnection import MqttStream
 try:
     import json
 except ImportError:
@@ -11,17 +12,14 @@ with open('apikeys.txt', 'r') as keyFile:
     DEVICE_ID = keyFile.readline().rstrip()
 keyFile.closed
 
-c = Client(token=CLIENT_TOKEN)
-d = c.get_device(deviceID=DEVICE_ID).get_info()
-def callback(message, channel):
-    print(message)
-user = c.get_user()
-app = c.get_app()
-conn = user.connect_device(app, d, callback)
-conn.start()
+c = Client(token='<my_access_token>')
+dev = c.get_device(id='<my_device_id>')
+def mqtt_callback(topic, payload):
+    print('%s %s' % (topic, payload))
+stream = MqttStream(mqtt_callback, [dev])
+stream.start()
 time.sleep(10)
-conn.stop()
-
+stream.stop()
 
 
 
