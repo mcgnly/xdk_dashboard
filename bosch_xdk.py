@@ -12,8 +12,8 @@ with open('apikeys.txt', 'r') as keyFile:
     DEVICE_ID = keyFile.readline().rstrip()
 keyFile.closed
 
-c = Client(token='<my_access_token>')
-dev = c.get_device(id='<my_device_id>')
+c = Client(token=CLIENT_TOKEN)
+dev = c.get_device(id=DEVICE_ID)
 def mqtt_callback(topic, payload):
     print('%s %s' % (topic, payload))
 stream = MqttStream(mqtt_callback, [dev])
